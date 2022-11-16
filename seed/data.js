@@ -11,6 +11,7 @@ const insertData = async () => {
     username: "bruno",
     email: "root@super.gmail.com",
     password_digest: await bcrypt.hash("!a$ecureP@ssw0Rd55!", 11),
+    imgURL: "https://randomuser.me/api/portraits/women/47.jpg",
     projects: [],
   });
   await user1.save();
@@ -19,6 +20,7 @@ const insertData = async () => {
     username: "bianca",
     email: "b.anca@super.gmail.com",
     password_digest: await bcrypt.hash("!$h0pp3R1", 11),
+    imgURL: "https://randomuser.me/api/portraits/men/34.jpg",
     projects: [],
   });
   await user2.save();
@@ -27,6 +29,7 @@ const insertData = async () => {
     username: "enzo",
     email: "n.zo@super.gmail.com",
     password_digest: await bcrypt.hash("!$eller4Lif3", 11),
+    imgURL: "https://randomuser.me/api/portraits/men/8.jpg",
     projects: [],
   });
   await user3.save();
@@ -35,6 +38,7 @@ const insertData = async () => {
     username: "kumi",
     email: "kumi@super.gmail.com",
     password_digest: await bcrypt.hash("L0v32!p4int", 11),
+    imgURL: "https://randomuser.me/api/portraits/men/26.jpg",
     projects: [],
   });
   await user4.save();
@@ -42,6 +46,7 @@ const insertData = async () => {
   // projects data
   const project1 = new Project({
     name: "project 001",
+    authors: ["bob", "ron"],
     imgURL:
       "https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
     description:
@@ -51,16 +56,17 @@ const insertData = async () => {
     techStack: ["html", "css", "js", "nodejs"],
     tasks: ["build boilerplate", "build frontend", "deploy"],
     team: [user2, user3],
-    user: user1,
   });
 
   await project1.save();
-
   user1.projects.push(project1);
+
   await user1.save();
+  await user1.populate("projects");
 
   const project2 = new Project({
     name: "Product 002",
+    authors: ["mary", "ron"],
     imgURL:
       "https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
     description:
@@ -70,7 +76,6 @@ const insertData = async () => {
     techStack: ["html", "css", "js", "nodejs"],
     tasks: ["build boilerplate", "build frontend", "deploy"],
     team: [user2, user3],
-    user: user2,
   });
 
   await project2.save();
@@ -80,6 +85,7 @@ const insertData = async () => {
 
   const project3 = new Project({
     name: "project 003",
+    authors: ["xen", "david"],
     imgURL:
       "https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
     description:
@@ -89,7 +95,6 @@ const insertData = async () => {
     techStack: ["html", "css", "js", "nodejs"],
     tasks: ["build boilerplate", "build frontend", "deploy"],
     team: [user2, user3],
-    user: user3,
   });
 
   await project3.save();
@@ -99,6 +104,7 @@ const insertData = async () => {
 
   const project4 = new Project({
     name: "project 004",
+    authors: ["bob"],
     imgURL:
       "https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
     description:
@@ -108,7 +114,6 @@ const insertData = async () => {
     techStack: ["html", "css", "js", "nodejs"],
     tasks: ["build boilerplate", "build frontend", "deploy"],
     team: [user2, user3],
-    user: user4,
   });
 
   await project4.save();

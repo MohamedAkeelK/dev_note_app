@@ -27,6 +27,9 @@ export const getProject = async (req, res) => {
 export const createProject = async (req, res) => {
   try {
     const project = new Project(req.body);
+    await Project.findOne({ name: req.body.name })
+      .select("team")
+      .populate("users");
     await project.save();
     res.status(201).json(project);
   } catch (error) {
