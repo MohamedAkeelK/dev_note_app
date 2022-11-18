@@ -55,8 +55,8 @@ export const updateProject = async (req, res) => {
       res.status(500);
     }
   } else {
-    console.log("You can delete only your post!");
-    res.status(500).json({ error: "You can delete only your post!" });
+    console.log("You can delete only your project!");
+    res.status(500).json({ error: "You can delete only your project!" });
   }
 };
 
@@ -77,7 +77,7 @@ export const deleteProject = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   } else {
-    console.log("You can delete only your post!");
-    res.status(500).json({ error: "You can delete only your post!" });
+    console.log("You can delete only your project!");
+    res.status(500).json({ error: "You can delete only your project!" });
   }
 };
