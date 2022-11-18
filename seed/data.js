@@ -12,7 +12,6 @@ const insertData = async () => {
     email: "root@super.gmail.com",
     password_digest: await bcrypt.hash("!a$ecureP@ssw0Rd55!", 11),
     imgURL: "https://randomuser.me/api/portraits/women/47.jpg",
-    projects: [],
   });
   await user1.save();
 
@@ -21,7 +20,6 @@ const insertData = async () => {
     email: "b.anca@super.gmail.com",
     password_digest: await bcrypt.hash("!$h0pp3R1", 11),
     imgURL: "https://randomuser.me/api/portraits/men/34.jpg",
-    projects: [],
   });
   await user2.save();
 
@@ -30,7 +28,6 @@ const insertData = async () => {
     email: "n.zo@super.gmail.com",
     password_digest: await bcrypt.hash("!$eller4Lif3", 11),
     imgURL: "https://randomuser.me/api/portraits/men/8.jpg",
-    projects: [],
   });
   await user3.save();
 
@@ -39,13 +36,14 @@ const insertData = async () => {
     email: "kumi@super.gmail.com",
     password_digest: await bcrypt.hash("L0v32!p4int", 11),
     imgURL: "https://randomuser.me/api/portraits/men/26.jpg",
-    projects: [],
   });
   await user4.save();
 
   // projects data
   const project1 = new Project({
     name: "project 001",
+    postedBy: user1,
+    username: "bruno",
     authors: ["bob", "ron"],
     imgURL:
       "https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
@@ -59,13 +57,14 @@ const insertData = async () => {
   });
 
   await project1.save();
-  user1.projects.push(project1);
+  // user1.projects.push(project1);
 
-  await user1.save();
-  await user1.populate("projects");
+  // await user1.save();
 
   const project2 = new Project({
     name: "Product 002",
+    username: "bianca",
+    postedBy: user2,
     authors: ["mary", "ron"],
     imgURL:
       "https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
@@ -80,11 +79,13 @@ const insertData = async () => {
 
   await project2.save();
 
-  user2.projects.push(project2);
-  await user2.save();
+  // user2.projects.push(project2);
+  // await user2.save();
 
   const project3 = new Project({
     name: "project 003",
+    username: "enzo",
+    postedBy: user3,
     authors: ["xen", "david"],
     imgURL:
       "https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
@@ -99,11 +100,13 @@ const insertData = async () => {
 
   await project3.save();
 
-  user3.projects.push(project3);
-  await user3.save();
+  // user3.projects.push(project3);
+  // await user3.save();
 
   const project4 = new Project({
     name: "project 004",
+    username: "kumi",
+    postedBy: user4,
     authors: ["bob"],
     imgURL:
       "https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
@@ -118,8 +121,8 @@ const insertData = async () => {
 
   await project4.save();
 
-  user4.projects.push(project4);
-  await user4.save();
+  // user4.projects.push(project4);
+  // await user4.save();
 
   console.log("Created users & projects!");
 

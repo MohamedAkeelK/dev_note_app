@@ -3,6 +3,8 @@ const Schema = mongoose.Schema;
 
 const Project = new Schema(
   {
+    postedBy: { type: Schema.Types.ObjectId, ref: "users" },
+    username: {type: String, required: true},
     name: { type: String, required: true },
     authors: [{ type: String }],
     imgURL: { type: String, required: true },
@@ -12,7 +14,6 @@ const Project = new Schema(
     techStack: [],
     tasks: [],
     team: [{ type: Schema.Types.ObjectId, ref: "users" }],
-    // user: { type: Schema.Types.ObjectId, ref: "users" },
   },
   { timestamps: true }
 );
