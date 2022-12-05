@@ -30,7 +30,6 @@ export const signUp = async (req, res) => {
       password_digest: password_hashed,
       imgURL:
         "https://www.pngkey.com/png/detail/839-8393808_user-male-silhouette-comments-blank-person.png",
-      projects: [],
     });
 
     await user.save();
@@ -40,7 +39,7 @@ export const signUp = async (req, res) => {
       username: user.username,
       email: user.email,
       imgURL: user.imgURL,
-      projects: [],
+      // projects: [],
       exp: parseInt(exp.getTime() / 1000),
     };
 
@@ -56,14 +55,15 @@ export const signIn = async (req, res) => {
   try {
     const { email, password_digest } = req.body;
     const user = await User.findOne({ email: email }).select(
-      "username email password_digest projects"
-    ).populate("projects");
+      "username email password_digest"
+    );
+    // .populate("projects");
     if (await bcrypt.compare(password_digest, user.password_digest)) {
       const payload = {
         id: user._id,
         username: user.username,
         email: user.email,
-        projects: user.projects,
+        // projects: user.projects,
         exp: parseInt(exp.getTime() / 1000),
       };
 

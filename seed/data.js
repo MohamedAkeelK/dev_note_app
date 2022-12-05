@@ -67,7 +67,7 @@ const insertData = async () => {
     postedBy: user2,
     authors: ["mary", "ron"],
     imgURL:
-      "https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+      "https://images.unsplash.com/photo-1638957036182-42b04d6f853b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDI2fHFQWXNEenZKT1ljfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     deadline: "12/12/2022",
@@ -88,7 +88,7 @@ const insertData = async () => {
     postedBy: user3,
     authors: ["xen", "david"],
     imgURL:
-      "https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+      "https://images.unsplash.com/photo-1668868488723-c217b4f89465?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     deadline: "12/12/2022",
@@ -109,7 +109,7 @@ const insertData = async () => {
     postedBy: user4,
     authors: ["bob"],
     imgURL:
-      "https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+      "https://images.unsplash.com/photo-1638957036182-42b04d6f853b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDI2fHFQWXNEenZKT1ljfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     deadline: "12/12/2022",
@@ -120,6 +120,42 @@ const insertData = async () => {
   });
 
   await project4.save();
+
+  const project5 = new Project({
+    name: "project 005",
+    username: "Kim",
+    postedBy: user3,
+    authors: ["Kim"],
+    imgURL:
+      "https://images.unsplash.com/photo-1669238502139-e4490f7eeaa0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDEyfHFQWXNEenZKT1ljfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea",
+    deadline: "12/12/2022",
+    codeSource: "https://github.com/MohamedAkeelK/dev_note_app",
+    techStack: ["html", "css", "js", "nodejs"],
+    tasks: ["build boilerplate", "build frontend", "deploy"],
+    team: [user1, user4],
+  });
+
+  await project5.save();
+
+  const project6 = new Project({
+    name: "project 006",
+    username: "Jake",
+    postedBy: user2,
+    authors: ["Jake"],
+    imgURL:
+      "https://images.unsplash.com/photo-1635698054698-1eaf72c5a894?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDM1fHFQWXNEenZKT1ljfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore ma",
+    deadline: "12/12/2022",
+    codeSource: "https://github.com/MohamedAkeelK/dev_note_app",
+    techStack: ["html", "css", "js", "nodejs"],
+    tasks: ["build boilerplate", "build frontend", "deploy"],
+    team: [user2, user3],
+  });
+
+  await project6.save();
 
   // user4.projects.push(project4);
   // await user4.save();
