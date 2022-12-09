@@ -1,10 +1,14 @@
 import mongoose from "mongoose";
 
-let MONGO_URL =
-  process.env.PROD_MONGODB || "mongodb://127.0.0.1:27017/dev_notes_app_ak";
+let url = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/dev_notes_app_ak";
 
 // Uncomment to debug Mongoose queries
 // mongoose.set('debug', true)
+
+let mongooseConfig = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 
 // This is for Model.findByIdAndUpdate method, specifically the so that { new: true} is the default
 // Learn more: https://mongoosejs.com/docs/api.html#model_Model.findByIdAndUpdate
@@ -13,7 +17,7 @@ mongoose.set("returnOriginal", false);
 // Setup connection for MongoDB
 // https://mongoosejs.com/docs/connections.html#connections
 mongoose
-  .connect(MONGO_URL)
+  .connect(url, mongooseConfig)
   .catch((error) =>
     console.error("Error connecting to MongoDB: ", error.message)
   );
