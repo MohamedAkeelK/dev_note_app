@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 
 const insertData = async () => {
   // reset database
-  await db.dropDatabase();
+  // await db.dropDatabase();
 
   const user1 = new User({
     username: "bruno",
