@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-let MONGODB_URI =
+let MONGO_URL =
   process.env.PROD_MONGODB || "mongodb://127.0.0.1:27017/dev_notes_app_ak";
 
 // Uncomment to debug Mongoose queries
@@ -13,7 +13,7 @@ mongoose.set("returnOriginal", false);
 // Setup connection for MongoDB
 // https://mongoosejs.com/docs/connections.html#connections
 mongoose
-  .connect(MONGODB_URI)
+  .connect(MONGO_URL)
   .catch((error) =>
     console.error("Error connecting to MongoDB: ", error.message)
   );
