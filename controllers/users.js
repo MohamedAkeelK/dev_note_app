@@ -10,7 +10,7 @@ let TOKEN_KEY = "areallylonggoodkey";
 // for production
 if (process.env.NODE_ENV === "production") {
   SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
-  TOKEN_KEY = process.env.TOKEN_KEY;
+  TOKEN_KEY = `${process.env.TOKEN_KEY}`;
 }
 
 // for JWT expiration
