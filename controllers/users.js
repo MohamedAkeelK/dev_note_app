@@ -8,8 +8,8 @@ let SALT_ROUNDS = 11;
 let TOKEN_KEY = "areallylonggoodkey";
 
 // for production
-if (process.env.NODE_ENV === "production") {
-  SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
+if (`${process.env.NODE_ENV}` === "production") {
+  SALT_ROUNDS = Number(`${process.env.SALT_ROUNDS}`);
   TOKEN_KEY = `${process.env.TOKEN_KEY}`;
 }
 
