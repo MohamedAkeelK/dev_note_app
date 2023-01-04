@@ -45,6 +45,7 @@ export const updateProject = async (req, res) => {
   res.status(200).json(project);
 };
 
+
 // export const updateProject = async (req, res) => {
 //   const { id } = req.params;
 //   // console.log(req.body.username);
