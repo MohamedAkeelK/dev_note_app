@@ -43,7 +43,8 @@ export const updateProject = async (req, res) => {
   const { id } = req.params;
   const project = await Project.findByIdAndUpdate(id, req.body, {
     new: true,
-  }).then(console.log(project));
+  });
+  console.log(project);
   res.status(200).json(project);
 };
 
