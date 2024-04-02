@@ -41,7 +41,9 @@ export const createProject = async (req, res) => {
 
 export const updateProject = async (req, res) => {
   const { id } = req.params;
-  const project = await Project.findByIdAndUpdate(id, req.body, { new: true });
+  const project = await Project.findByIdAndUpdate(id, req.body, {
+    new: true,
+  }).then(console.log(project));
   res.status(200).json(project);
 };
 
