@@ -39,32 +39,32 @@ export const createProject = async (req, res) => {
   }
 };
 
-// export const updateProject = async (req, res) => {
-//   const { id } = req.params;
-//   const project = await Project.findByIdAndUpdate(id, req.body, { new: true });
-//   res.status(200).json(project);
-// };
-
 export const updateProject = async (req, res) => {
   const { id } = req.params;
-  // console.log(req.body.username);
-  const projectAuthor = req.body.username;
-  const theproject = await Project.findById(id);
-  if (theproject === projectAuthor) {
-    try {
-      const project = await Project.findByIdAndUpdate(id, req.body, {
-        new: true,
-      });
-      res.status(200).json(project);
-    } catch (err) {
-      console.log(err);
-      res.status(500);
-    }
-  } else {
-    console.log("You can delete only your project!");
-    res.status(500).json({ error: "You can delete only your project!" });
-  }
+  const project = await Project.findByIdAndUpdate(id, req.body, { new: true });
+  res.status(200).json(project);
 };
+
+// export const updateProject = async (req, res) => {
+//   const { id } = req.params;
+//   console.log(req.body.username);
+//   const projectAuthor = req.body.username;
+//   const theproject = await Project.findById(id);
+//   if (theproject === projectAuthor) {
+//     try {
+//       const project = await Project.findByIdAndUpdate(id, req.body, {
+//         new: true,
+//       });
+//       res.status(200).json(project);
+//     } catch (err) {
+//       console.log(err);
+//       res.status(500);
+//     }
+//   } else {
+//     console.log("You can edit only your project!");
+//     res.status(500).json({ error: "You can edit only your project!" });
+//   }
+// };
 
 export const deleteProject = async (req, res) => {
   try {
