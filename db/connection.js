@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
-let url = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/dev_notes_app_ak";
+let url =
+  // process.env.MONGO_URL ||
+  "mongodb+srv://akeel:shark234@devnote.wu0g9.mongodb.net/?retryWrites=true&w=majority&appName=devnote";
 
 // Uncomment to debug Mongoose queries
 // mongoose.set('debug', true)

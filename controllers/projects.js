@@ -1,5 +1,7 @@
 import Project from "../models/Project.js";
 // import User from "../models/User.js";
+import restrict from "../helpers/restrict.js";
+import User from "../models/User.js";
 
 export const getProjects = async (req, res) => {
   try {
@@ -39,48 +41,69 @@ export const createProject = async (req, res) => {
   }
 };
 
-export const updateProject = async (req, res) => {
-  const { id } = req.params;
-  const project = await Project.findByIdAndUpdate(id, req.body, {
-    new: true,
-  });
-  console.log(project);
-  res.status(200).json(project);
-};
-
 // export const updateProject = async (req, res) => {
 //   const { id } = req.params;
-//   console.log(req.body.username);
-//   const projectAuthor = req.body.username;
-//   const theproject = await Project.findById(id);
-//   if (theproject === projectAuthor) {
-//     try {
-//       const project = await Project.findByIdAndUpdate(id, req.body, {
-//         new: true,
-//       });
-//       res.status(200).json(project);
-//     } catch (err) {
-//       console.log(err);
-//       res.status(500);
-//     }
-//   } else {
-//     console.log("You can edit only your project!");
-//     res.status(500).json({ error: "You can edit only your project!" });
-//   }
+//   const project = await Project.findByIdAndUpdate(id, req.body, {
+//     new: true,
+//   });
+//   // console.log(project);
+//   res.status(200).json(project);
 // };
 
-export const deleteProject = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deleted = await Project.findByIdAndDelete(id);
-    if (deleted) {
-      return res.status(200).send("Project deleted");
+export const updateProject = async (req, res) => {
+  const { id } = req.params;
+  const theproject = await Project.findById(id);
+  if (theproject.username === theproject.authors[0]) {
+    try {
+      const project = await Project.findByIdAndUpdate(id, req.body, {
+        new: true,
+      });
+      res.status(200).json(project);
+    } catch (err) {
+      console.log(err);
+      res.status(500);
     }
-    throw new Error("Project not found");
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ error: error.message });
+  } else {
+    console.log("You can edit only your project!");
+    res.status(500).json({ error: "You can edit only your project!" });
   }
+};
+
+export const deleteProject = async (req, res) => {
+  const { user } = req.user;
+  console.log(user);
+  // verify();
+  // const user = await User.findById(req.User)
+  // const { id } = req.params;
+  // const theproject = await Project.findById(id);
+  // const userId = theproject.postedBy;
+  // const founduser = await User.findById(userId);
+  // const theuser = await User.findById(id);
+
+  // const theuser = theproject._id.split();
+
+  // console.log(theproject.postedBy);
+
+  // console.log(founduser._id.equals(userId));
+
+  // const { id } = req.params;
+  // const theproject = await Project.findById(id);
+  // if (!theproject.postedBy.equals(User.id)) {
+  //   try {
+  //     const { id } = req.params;
+  //     const deleted = await Project.findByIdAndDelete(id);
+  //     if (deleted) {
+  //       return res.status(200).send("Project deleted");
+  //     }
+  //     throw new Error("Project not found");
+  //   } catch (error) {
+  //     console.log(error.message);
+  //     res.status(500).json({ error: error.message });
+  //   }
+  // } else {
+  //   console.log("You can delete only your project!");
+  //   res.status(500).json({ error: "You can delete only your project!" });
+  // }
 };
 
 // export const deleteProject = async (req, res) => {

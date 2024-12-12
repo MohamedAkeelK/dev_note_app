@@ -1,12 +1,12 @@
 import db from "./db/connection.js";
 import routes from "./routes/index.js";
-
+// import dot
 import express from "express";
 import cors from "cors";
 import logger from "morgan";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(cors());
