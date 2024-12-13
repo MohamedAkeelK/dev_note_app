@@ -1,6 +1,5 @@
 import Project from "../models/Project.js";
-// import User from "../models/User.js";
-import restrict from "../helpers/restrict.js";
+// import restrict from "../helpers/restrict.js";
 import User from "../models/User.js";
 
 export const getProjects = async (req, res) => {
@@ -27,20 +26,6 @@ export const getProject = async (req, res) => {
   }
 };
 
-// export const createProject = async (req, res) => {
-//   try {
-//     // const project = new Project(req.body);
-//     // await Project.findOne({ name: req.body.name })
-//     //   .select("postedBy")
-//     //   .populate("users");
-//     await project.save();
-//     res.status(201).json(project);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-
 export const createProject = async (req, res) => {
   try {
     // Check if a project with the same name already exists
@@ -52,7 +37,8 @@ export const createProject = async (req, res) => {
     }
 
     // Create a new project
-    const project = new Project(req.body);
+    const projectData = { ...req.body, postedBy: req.user.id };
+    const project = new Project(projectData);
     await project.save();
 
     // Find the user and update their projects array
@@ -103,60 +89,33 @@ export const updateProject = async (req, res) => {
 };
 
 export const deleteProject = async (req, res) => {
-  const { user } = req.user;
-  console.log(user);
-  // verify();
-  // const user = await User.findById(req.User)
-  // const { id } = req.params;
-  // const theproject = await Project.findById(id);
-  // const userId = theproject.postedBy;
-  // const founduser = await User.findById(userId);
-  // const theuser = await User.findById(id);
+  try {
+    const { id } = req.params; // The project ID
+    const userId = req.user.id; // The logged-in user's ID
 
-  // const theuser = theproject._id.split();
+    // Find the project and populate the `postedBy` field
+    const project = await Project.findById(id).populate("postedBy");
 
-  // console.log(theproject.postedBy);
+    if (!project) {
+      return res.status(404).json({ error: "Project not found" });
+    }
 
-  // console.log(founduser._id.equals(userId));
+    // Check if the logged-in user is the owner of the project
+    if (!project.postedBy || !project.postedBy.equals(userId)) {
+      return res
+        .status(403)
+        .json({ error: "You can delete only your project" });
+    }
 
-  // const { id } = req.params;
-  // const theproject = await Project.findById(id);
-  // if (!theproject.postedBy.equals(User.id)) {
-  //   try {
-  //     const { id } = req.params;
-  //     const deleted = await Project.findByIdAndDelete(id);
-  //     if (deleted) {
-  //       return res.status(200).send("Project deleted");
-  //     }
-  //     throw new Error("Project not found");
-  //   } catch (error) {
-  //     console.log(error.message);
-  //     res.status(500).json({ error: error.message });
-  //   }
-  // } else {
-  //   console.log("You can delete only your project!");
-  //   res.status(500).json({ error: "You can delete only your project!" });
-  // }
+    // Delete the project
+    await Project.findByIdAndDelete(id);
+
+    // Optionally, remove the project from the user's projects array
+    await User.findByIdAndUpdate(userId, { $pull: { projects: id } });
+
+    res.status(200).json({ message: "Project deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
 };
-
-// export const deleteProject = async (req, res) => {
-//   const { id } = req.params;
-//   const projectAuthor = req.body.username;
-//   const theproject = await Project.findById(id);
-//   if (theproject === projectAuthor) {
-//     try {
-//       const deleted = await Project.findByIdAndDelete(id);
-//       if (deleted) {
-//         console.log("project deleted");
-//         return res.status(200).send("Project deleted");
-//       }
-//       throw new Error("Project not found");
-//     } catch (error) {
-//       console.log(error.message);
-//       res.status(500).json({ error: error.message });
-//     }
-//   } else {
-//     console.log("You can delete only your project!");
-//     res.status(500).json({ error: "You can delete only your project!" });
-//   }
-// };
