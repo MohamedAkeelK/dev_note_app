@@ -60,33 +60,56 @@ export const createProject = async (req, res) => {
   }
 };
 
-// export const updateProject = async (req, res) => {
-//   const { id } = req.params;
-//   const project = await Project.findByIdAndUpdate(id, req.body, {
-//     new: true,
-//   });
-//   // console.log(project);
-//   res.status(200).json(project);
-// };
-
 export const updateProject = async (req, res) => {
-  const { id } = req.params;
-  const theproject = await Project.findById(id);
-  if (theproject.username === theproject.authors[0]) {
-    try {
-      const project = await Project.findByIdAndUpdate(id, req.body, {
-        new: true,
-      });
-      res.status(200).json(project);
-    } catch (err) {
-      console.log(err);
-      res.status(500);
+  try {
+    const { id } = req.params; // The project ID to update
+    const userId = req.user.id; // The logged-in user's ID
+
+    // Find the project and populate the `postedBy` field
+    const project = await Project.findById(id).populate("postedBy");
+
+    if (!project) {
+      return res.status(404).json({ error: "Project not found" });
     }
-  } else {
-    console.log("You can edit only your project!");
-    res.status(500).json({ error: "You can edit only your project!" });
+
+    // Check if the logged-in user is the owner of the project
+    if (!project.postedBy || !project.postedBy.equals(userId)) {
+      return res
+        .status(403)
+        .json({ error: "You can update only your project" });
+    }
+
+    // Update the project with the new data
+    const updatedProject = await Project.findByIdAndUpdate(id, req.body, {
+      new: true, // Return the updated document
+      runValidators: true, // Ensure validation rules are applied
+    });
+
+    res.status(200).json(updatedProject);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
   }
 };
+
+// export const updateProject = async (req, res) => {
+//   const { id } = req.params;
+//   const theproject = await Project.findById(id);
+//   if (theproject.username === theproject.authors[0]) {
+//     try {
+//       const project = await Project.findByIdAndUpdate(id, req.body, {
+//         new: true,
+//       });
+//       res.status(200).json(project);
+//     } catch (err) {
+//       console.log(err);
+//       res.status(500);
+//     }
+//   } else {
+//     console.log("You can edit only your project!");
+//     res.status(500).json({ error: "You can edit only your project!" });
+//   }
+// };
 
 export const deleteProject = async (req, res) => {
   try {
