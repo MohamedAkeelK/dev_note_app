@@ -27,13 +27,46 @@ export const getProject = async (req, res) => {
   }
 };
 
+// export const createProject = async (req, res) => {
+//   try {
+//     // const project = new Project(req.body);
+//     // await Project.findOne({ name: req.body.name })
+//     //   .select("postedBy")
+//     //   .populate("users");
+//     await project.save();
+//     res.status(201).json(project);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
 export const createProject = async (req, res) => {
   try {
+    // Check if a project with the same name already exists
+    const existingProject = await Project.findOne({ name: req.body.name });
+    if (existingProject) {
+      return res
+        .status(400)
+        .json({ error: "Project with this name already exists" });
+    }
+
+    // Create a new project
     const project = new Project(req.body);
-    await Project.findOne({ name: req.body.name })
-      .select("postedBy")
-      .populate("users");
     await project.save();
+
+    // Find the user and update their projects array
+    const userId = req.user.id; // Assumes `req.user.id` contains the logged-in user's ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.allProjects.push(project._id); // Add the project ID to the user's projects array
+    await user.save();
+
+    // Respond with the created project
     res.status(201).json(project);
   } catch (error) {
     console.log(error);

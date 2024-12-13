@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 const Project = new Schema(
   {
     postedBy: { type: Schema.Types.ObjectId, ref: "users" },
-    username: {type: String, required: true},
+    username: { type: String, required: true },
     name: { type: String, required: true },
-    authors: [{ type: String }],
+    authors: [],
     imgURL: { type: String, required: true },
     description: { type: String, required: true },
     deadline: { type: String },

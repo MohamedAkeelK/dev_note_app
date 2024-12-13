@@ -11,6 +11,7 @@ const User = new Schema(
     email: { type: String, required: true, unique: true },
     password_digest: { type: String, required: true, select: false },
     imgURL: { type: String },
+    allProjects: [{ type: Schema.Types.ObjectId, ref: "projects" }],
   },
 
   { timestamps: true }
